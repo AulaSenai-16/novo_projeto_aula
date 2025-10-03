@@ -1,12 +1,18 @@
 package com.senai.infob.aula.models;
 
 import java.time.LocalDate;
+import java.util.Set;
+
+import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,14 +33,24 @@ public class Estudante {
     @Column(name="matricula")
     private String matricula;
 
+    @ManyToMany
+    @JoinTable(
+        name = "estudante_unidade_curricular",
+        joinColumns = @JoinColumn(name = "estudante_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "unidade_curricular_id", referencedColumnName = "id")
+    )
+    private Set<UnidadeCurricular> unidadesCurriculares;
+
     public Estudante() {
     }
 
-    public Estudante(Integer id, String email, LocalDate dataNascimento, String matricula) {
+    public Estudante(Integer id, String email, LocalDate dataNascimento, String matricula,
+            Set<UnidadeCurricular> unidadesCurriculares) {
         this.id = id;
         this.email = email;
         this.dataNascimento = dataNascimento;
         this.matricula = matricula;
+        this.unidadesCurriculares = unidadesCurriculares;
     }
 
     public Integer getId() {
@@ -69,5 +85,13 @@ public class Estudante {
         this.matricula = matricula;
     }
 
+    public Set<UnidadeCurricular> getUnidadesCurriculares() {
+        return unidadesCurriculares;
+    }
+
+    public void setUnidadesCurriculares(Set<UnidadeCurricular> unidadesCurriculares) {
+        this.unidadesCurriculares = unidadesCurriculares;
+    }
     
+
 }
