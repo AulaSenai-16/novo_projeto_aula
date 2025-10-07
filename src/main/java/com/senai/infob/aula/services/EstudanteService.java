@@ -19,9 +19,12 @@ public Estudante salvar(Estudante estudante){
     return estudanteRepository.save(estudante);
 }
 
-public void delete(Integer id){
-    estudanteRepository.deleteById(id);
-
+public boolean deletar(Integer id){
+    Estudante estudante = estudanteRepository.findById(id).get();
+    if (estudante != null) {
+        estudanteRepository.deleteById(id);
+        return true;
+    }
+    return false;
 }
-
 }

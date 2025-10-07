@@ -37,11 +37,13 @@ public Estudante salvar(@RequestBody Estudante estudante) {
 }
 
 @DeleteMapping("/delete/{id}")
-public String deletar(@PathVariable Integer id)
-    // if estudanteService.delete(id);{
-    //     return "usuário removidoS"
-    // }
-    
+public String deletar(@PathVariable Integer id){
+  boolean deletou = estudanteService.deletar(id);
+  if (deletou){
+    return "usuario removido com sucesso";
+  }
+  return "usuario falhoe";
+     }
 
 
 }
