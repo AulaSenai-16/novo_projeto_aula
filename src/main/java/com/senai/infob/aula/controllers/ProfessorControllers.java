@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.senai.infob.aula.models.Estudante;
-import com.senai.infob.aula.services.EstudanteService;
+import com.senai.infob.aula.models.Professor;
+import com.senai.infob.aula.services.ProfessorService;
+import com.senai.infob.aula.services.ProfessorService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,25 +24,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-public class EstudanteControllers {
+public class ProfessorControllers {
 
     @Autowired
-    public EstudanteService estudanteService;
+    public ProfessorService professorService;
     
     @GetMapping("/count")
     public Long count() {
-        return estudanteService.count();
+        return professorService.count();
 }
 
 @PostMapping("/salvar")
-public Estudante salvar(@RequestBody Estudante estudante) {
-    return estudanteService.salvar(estudante);
+public Professor salvar(@RequestBody Professor professor) {
+    return professorService.salvar(professor);
     
 }
 
 @DeleteMapping("/delete/{id}")
 public String deletar(@PathVariable Integer id){
-  boolean deletou = estudanteService.deletar(id);
+  boolean deletou = professorService.deletar(id);
   if (deletou){
     return "usuario removido com sucesso";
   }
@@ -50,22 +51,22 @@ public String deletar(@PathVariable Integer id){
 
 // @Find("/find/{id}")
 // public String find(@PathVariable Integer id){
-//   return estudanteService.buscarEstudante(estudante);
+//   return professorService.buscarEstudante(professor);
 // }
 
 @GetMapping("encontrar")
-public Estudante find(Integer id) {
-    return estudanteService.find(id);
+public Professor find(Integer id) {
+    return professorService.find(id);
 }
 
 @GetMapping("listar")
-public List<Estudante> listarTodos() {
-    return estudanteService.listarTodos();
+public List<Professor> listarTodos() {
+    return professorService.listarTodos();
 }
 
 @PutMapping("/atualizar-boolean/{id}")
-public boolean atualizar(@PathVariable Integer id, @RequestBody Estudante estudante){
-boolean atualizou = estudanteService.atualizar(estudante, id);
+public boolean atualizar(@PathVariable Integer id, @RequestBody Professor professor){
+boolean atualizou = professorService.atualizar(professor, id);
 if(atualizou){
   return true;
 }
@@ -74,3 +75,4 @@ return false;
 
 
 }
+

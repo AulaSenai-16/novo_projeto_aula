@@ -1,6 +1,7 @@
 package com.senai.infob.aula.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,15 @@ public Estudante find(Integer id) {
 public List<Estudante> listarTodos(){
     return estudanteRepository.findAll();
 }
+
+    public Boolean atualizar(Estudante estudante, Integer id){
+    Estudante e = estudanteRepository.findById(id).get();
+    if(estudanteRepository.existsById(id)){
+        estudante.setId(id);
+        estudanteRepository.save(estudante);
+        return true;
+    }
+    return false;
+    }
 
 }
