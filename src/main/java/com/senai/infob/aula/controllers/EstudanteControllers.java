@@ -1,5 +1,10 @@
 package com.senai.infob.aula.controllers;
 
+import java.util.List;
+
+import javax.print.DocFlavor.STRING;
+
+import org.hibernate.annotations.processing.Find;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,23 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.infob.aula.models.Estudante;
-import com.senai.infob.aula.repositories.EstudanteRepository;
 import com.senai.infob.aula.services.EstudanteService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+
 @RestController
 public class EstudanteControllers {
 
-    private final EstudanteRepository estudanteRepository;
-
     @Autowired
     public EstudanteService estudanteService;
-
-    EstudanteControllers(EstudanteRepository estudanteRepository) {
-        this.estudanteRepository = estudanteRepository;
-    }
     
     @GetMapping("/count")
     public Long count() {
@@ -44,6 +43,21 @@ public String deletar(@PathVariable Integer id){
   }
   return "usuario falhoe";
      }
+
+// @Find("/find/{id}")
+// public String find(@PathVariable Integer id){
+//   return estudanteService.buscarEstudante(estudante);
+// }
+
+@GetMapping("encontrar")
+public Estudante find(Integer id) {
+    return estudanteService.find(id);
+}
+
+@GetMapping("?listar")
+public List<Estudante> listarTodos() {
+    return estudanteService.listarTodos();
+}
 
 
 }
